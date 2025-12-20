@@ -1,20 +1,23 @@
 package com.pmob.projectakhirpemrogramanmobile
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.pmob.projectakhirpemrogramanmobile.databinding.ActivityForgotPasswordBinding
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityForgotPasswordBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = FirebaseAuth.getInstance()
 
         // Back
         binding.btnBack.setOnClickListener {
@@ -30,9 +33,26 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // TODO: kirim OTP via Firebase / API
-            Toast.makeText(this, "Kode OTP dikirim ke email", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, OtpActivity::class.java))
+            sendResetEmail(email)
         }
+    }
+
+    private fun sendResetEmail(email: String) {
+        auth.sendPasswordResetEmail(email)
+            .addOnSuccessListener {
+                Toast.makeText(
+                    this,
+                    "Email reset password telah dikirim. Silakan cek email Anda.",
+                    Toast.LENGTH_LONG
+                ).show()
+                finish() // balik ke Login
+            }
+            .addOnFailureListener {
+                Toast.makeText(
+                    this,
+                    it.message ?: "Gagal mengirim email reset",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
     }
 }

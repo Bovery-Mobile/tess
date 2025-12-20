@@ -1,120 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
+    <!-- ===== BACK BUTTON ===== -->
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="12dp"
+        android:src="@drawable/ic_back"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <!-- Back -->
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_back"
-            android:layout_marginBottom="16dp"/>
+    <!-- ===== SCROLL FORM ===== -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Title -->
-        <TextView
-            android:text="Buat Akun"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:text="Bergabunglah dengan komunitas pembaca kami."
-            android:textColor="@color/text_secondary"
-            android:layout_marginBottom="24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <!-- Nama -->
-        <EditText
-            android:id="@+id/etName"
-            android:hint="Nama Lengkap"
-            android:background="@drawable/bg_input"
-            android:paddingVertical="16dp"
-            android:paddingHorizontal="18dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <!-- Email -->
-        <EditText
-            android:id="@+id/etEmail"
-            android:hint="Alamat Email"
-            android:drawableStart="@drawable/ic_email"
-            android:drawablePadding="12dp"
-            android:background="@drawable/bg_input"
-            android:paddingVertical="16dp"
-            android:paddingHorizontal="18dp"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:text="DAFTAR"
+                android:layout_gravity="center"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <!-- Password -->
-        <EditText
-            android:id="@+id/etPassword"
-            android:hint="Kata Sandi"
-            android:drawableStart="@drawable/ic_lock"
-            android:drawableEnd="@drawable/ic_eye"
-            android:drawablePadding="12dp"
-            android:background="@drawable/bg_input"
-            android:paddingVertical="16dp"
-            android:paddingHorizontal="18dp"
-            android:inputType="textPassword"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/gambar_login"
+                android:background="@drawable/rounded_image"
+                />
 
-        <!-- Confirm Password -->
-        <EditText
-            android:id="@+id/etConfirmPassword"
-            android:hint="Konfirmasi Kata Sandi"
-            android:drawableStart="@drawable/ic_lock"
-            android:drawableEnd="@drawable/ic_eye"
-            android:drawablePadding="12dp"
-            android:background="@drawable/bg_input"
-            android:paddingVertical="16dp"
-            android:paddingHorizontal="18dp"
-            android:inputType="textPassword"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:text="Buat Akun Baru"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <!-- Checkbox -->
-        <CheckBox
-            android:id="@+id/cbTerms"
-            android:text="Saya menyetujui Syarat dan Ketentuan serta Kebijakan Privasi"
-            android:textColor="@color/text_secondary"
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:text="Lengkapi data di bawah untuk membuat akun baru."
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <!-- Button -->
-        <Button
-            android:id="@+id/btnRegister"
-            android:text="Daftar Sekarang"
-            android:textColor="@android:color/white"
-            android:background="@drawable/bg_button_primary"
-            android:layout_marginTop="24dp"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"/>
+            <!-- FORM -->
 
-        <!-- Login link -->
-        <TextView
-            android:id="@+id/tvLogin"
-            android:text="Sudah punya akun? Masuk"
-            android:textColor="@color/primary"
-            android:layout_gravity="center"
-            android:layout_marginTop="24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_input"
+                android:hint="Nama Lengkap"
+                android:padding="16dp" />
 
-    </LinearLayout>
-</ScrollView>
+            <EditText
+                android:id="@+id/etEmail"
+                android:hint="Alamat Email"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="12dp"
+                android:background="@drawable/bg_input"
+                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:hint="Kata Sandi"
+                android:drawablePadding="12dp"
+                android:drawableStart="@drawable/ic_lock"
+                android:drawableEnd="@drawable/ic_eye"
+                android:background="@drawable/bg_input"
+                android:padding="16dp"
+                android:inputType="textPassword"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/etConfirmPassword"
+                android:hint="Konfirmasi Kata Sandi"
+                android:drawablePadding="12dp"
+                android:drawableStart="@drawable/ic_lock"
+                android:drawableEnd="@drawable/ic_eye"
+                android:background="@drawable/bg_input"
+                android:padding="16dp"
+                android:inputType="textPassword"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <CheckBox
+                android:id="@+id/cbTerms"
+                android:text="Saya menyetujui Syarat dan Ketentuan serta Kebijakan Privasi"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:text="Daftar Sekarang"
+                android:background="@drawable/bg_button_primary"
+                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"/>
+
+            <TextView
+                android:id="@+id/tvLogin"
+                android:textColor="@color/primary"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
