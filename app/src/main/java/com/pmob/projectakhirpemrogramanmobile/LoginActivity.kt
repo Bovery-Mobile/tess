@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
                     Toast.makeText(this, "Login berhasil", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, HomeActivity::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
                 .addOnFailureListener { error ->
@@ -112,9 +112,9 @@ class LoginActivity : AppCompatActivity() {
 
 
         // ===== Ke Register =====
-        binding.tvRegister.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }
+//        binding.tvRegister.setOnClickListener {
+//            startActivity(Intent(this, RegisterActivity::class.java))
+//        }
 
         // ===== Lupa Kata Sandi =====
         binding.tvForgot.setOnClickListener {

@@ -67,4 +67,32 @@ dependencies {
 
     // Firebase
     implementation("com.google.firebase:firebase-auth:23.0.0")
+
+    // Lifecycle
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+
+    // Coroutines untuk async
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+    // OkHttp Logging Interceptor (untuk debug)
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    // Gson
+    implementation("com.google.code.gson:gson:2.10.1")
+
+    // RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    // CardView
+    implementation("androidx.cardview:cardview:1.0.0")
+
+    // CoordinatorLayout
+    implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
+
+    // Core Widget (untuk NestedScrollView)
+    implementation("androidx.core:core:1.12.0")
+
+
 }

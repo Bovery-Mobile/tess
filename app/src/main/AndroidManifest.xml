@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Internet Permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -10,7 +14,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProjectAkhirPemrogramanMobile">
+        android:theme="@style/Theme.ProjectAkhirPemrogramanMobile"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".ReadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BuyActivity"
+            android:exported="false" />
         <activity
             android:name=".VerifyEmailActivity"
             android:exported="false" />
@@ -27,7 +42,7 @@
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".NewPasswordActivity"

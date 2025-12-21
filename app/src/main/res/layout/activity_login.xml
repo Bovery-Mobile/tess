@@ -58,7 +58,6 @@
             android:textColor="@color/text_primary"
             android:textColorHint="@color/text_secondary"/>
 
-
         <EditText
             android:id="@+id/etPassword"
             android:hint="Masukkan kata sandi"
