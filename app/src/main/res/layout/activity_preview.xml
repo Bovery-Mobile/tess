@@ -21,8 +21,7 @@
                 android:id="@+id/btnBack"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"
-                android:tint="#000000" />
+                android:src="@drawable/ic_back"/>
 
             <!-- Cover -->
             <com.google.android.material.card.MaterialCardView

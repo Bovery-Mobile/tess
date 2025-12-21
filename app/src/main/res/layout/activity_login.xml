@@ -2,19 +2,21 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center_vertical"
         android:padding="24dp">
 
         <TextView
             android:text="Masuk"
             android:layout_gravity="center"
             android:textSize="28sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="20dp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
@@ -26,8 +28,7 @@
             android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:src="@drawable/gambar_login"
-            android:background="@drawable/rounded_image"
-            />
+            android:background="@drawable/rounded_image"/>
 
         <TextView
             android:text="Selamat Datang"
