@@ -19,6 +19,7 @@ class TermsConditionActivity : AppCompatActivity() {
         binding.btnContinue.isEnabled = false
         binding.btnContinue.alpha = 0.5f
 
+
         binding.cbAgree.setOnCheckedChangeListener { _, isChecked ->
             binding.btnContinue.isEnabled = isChecked
             binding.btnContinue.alpha = if (isChecked) 1f else 0.5f
@@ -29,5 +30,12 @@ class TermsConditionActivity : AppCompatActivity() {
                 Intent(this, SetupProfileActivity::class.java)
             )
         }
+
+        binding.btnBackVerif.setOnClickListener {
+            val intent = Intent(this, VerifyEmailActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 }

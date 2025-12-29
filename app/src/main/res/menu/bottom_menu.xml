@@ -11,9 +11,9 @@
         android:title="Cari" />
 
     <item
-        android:id="@+id/nav_library"
+        android:id="@+id/nav_history"
         android:icon="@drawable/ic_rak"
-        android:title="Rak Buku" />
+        android:title="Riwayat" />
 
     <item
         android:id="@+id/nav_profile"

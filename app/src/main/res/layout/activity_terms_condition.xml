@@ -2,37 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     android:orientation="vertical"
+    android:background="@color/background"
     android:padding="24dp">
 
-    <!-- Title -->
-    <TextView
-        android:text="Syarat &amp; Ketentuan"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <!-- Info Card -->
+    <!-- ===== HEADER ===== -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/btnBackVerif"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:text="Syarat &amp; Ketentuan"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginStart="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <!-- ===== INFO CARD ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
         android:background="@drawable/bg_input"
-        android:padding="16dp"
-        android:layout_marginTop="16dp">
+        android:padding="16dp">
 
         <TextView
             android:text="Penting\nMohon baca dan pahami seluruh syarat &amp; ketentuan sebelum melanjutkan proses pendaftaran."
             android:textColor="@color/text_secondary"
             android:lineSpacingExtra="6dp"
+            android:justificationMode="inter_word"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <!-- Terms Content -->
+    <!-- ===== TERMS CONTENT ===== -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -46,11 +64,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- ITEM 1 -->
+            <!-- ITEM TEMPLATE -->
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginBottom="12dp">
 
                 <TextView
@@ -58,22 +76,22 @@
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
                     android:layout_width="24dp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="Hak dan Kewajiban Pengguna\nPengguna berhak mengakses koleksi buku digital dan fisik sesuai ketentuan. Pengguna wajib menjaga kerahasiaan akun dan kata sandi."
+                    android:text="Hak dan Kewajiban Pengguna\nPengguna berhak mengakses, membaca, dan menggunakan layanan Perpustakaan Digital sesuai dengan ketentuan yang berlaku. Pengguna wajib menjaga kerahasiaan akun, termasuk alamat email dan kata sandi, serta bertanggung jawab atas seluruh aktivitas yang terjadi melalui akun tersebut. Segala bentuk penyalahgunaan akun menjadi tanggung jawab pengguna sepenuhnya."
                     android:textColor="@color/text_secondary"
                     android:lineSpacingExtra="6dp"
+                    android:justificationMode="inter_word"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- ITEM 2 -->
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginBottom="12dp">
 
                 <TextView
@@ -81,22 +99,22 @@
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
                     android:layout_width="24dp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="Keamanan Data\nKami berkomitmen melindungi data pribadi pengguna sesuai kebijakan privasi yang berlaku."
+                    android:text="Pendaftaran dan Keamanan Akun\nPengguna diwajibkan memberikan informasi yang benar, lengkap, dan terbaru saat melakukan pendaftaran. Aplikasi tidak bertanggung jawab atas kerugian yang timbul akibat informasi palsu atau tidak akurat. Pengguna dilarang membagikan akses akun kepada pihak lain tanpa izin resmi."
                     android:textColor="@color/text_secondary"
                     android:lineSpacingExtra="6dp"
+                    android:justificationMode="inter_word"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- ITEM 3 -->
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginBottom="12dp">
 
                 <TextView
@@ -104,54 +122,122 @@
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
                     android:layout_width="24dp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="Penggunaan Konten\nSeluruh konten buku dilindungi hak cipta dan tidak boleh disebarluaskan tanpa izin resmi."
+                    android:text="Penggunaan Konten &amp; Hak Cipta\nSeluruh konten yang tersedia dalam aplikasi, termasuk namun tidak terbatas pada buku digital, teks, gambar, dan ilustrasi, dilindungi oleh undang-undang hak cipta. Pengguna dilarang menyalin, mendistribusikan, memperjualbelikan, atau memanfaatkan konten untuk kepentingan komersial tanpa izin tertulis dari pemilik hak cipta."
                     android:textColor="@color/text_secondary"
                     android:lineSpacingExtra="6dp"
+                    android:justificationMode="inter_word"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- ITEM 4 -->
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:text="4."
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
                     android:layout_width="24dp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="Sanksi\nPelanggaran terhadap syarat dan ketentuan dapat mengakibatkan pembatasan akses hingga penonaktifan akun."
+                    android:text="Transaksi dan Pembayaran\nUntuk layanan tertentu, aplikasi dapat menyediakan fitur pembelian atau pembayaran digital. Setiap transaksi yang dilakukan bersifat sah dan mengikat. Pengguna bertanggung jawab memastikan keakuratan data pembayaran. Aplikasi tidak bertanggung jawab atas kegagalan transaksi yang disebabkan oleh pihak ketiga atau gangguan sistem di luar kendali aplikasi."
                     android:textColor="@color/text_secondary"
                     android:lineSpacingExtra="6dp"
+                    android:justificationMode="inter_word"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:text="5."
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="Perlindungan Data dan Privasi\nKami berkomitmen untuk melindungi data pribadi pengguna sesuai dengan kebijakan privasi yang berlaku. Informasi pengguna akan digunakan hanya untuk keperluan operasional aplikasi dan tidak akan dibagikan kepada pihak ketiga tanpa persetujuan pengguna, kecuali diwajibkan oleh hukum yang berlaku."
+                    android:textColor="@color/text_secondary"
+                    android:lineSpacingExtra="6dp"
+                    android:justificationMode="inter_word"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:text="6."
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="Larangan Penggunaan\nPengguna dilarang menggunakan aplikasi untuk tujuan yang melanggar hukum, norma sosial, atau merugikan pihak lain. Segala bentuk aktivitas yang mengandung unsur penipuan, peretasan, manipulasi sistem, penyebaran malware, atau penyalahgunaan layanan akan dikenakan tindakan tegas sesuai dengan kebijakan yang berlaku."
+                    android:textColor="@color/text_secondary"
+                    android:lineSpacingExtra="6dp"
+                    android:justificationMode="inter_word"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:text="7."
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="Sanksi dan Penonaktifan Akun\nPelanggaran terhadap syarat dan ketentuan ini dapat mengakibatkan pembatasan sementara layanan, penangguhan akses, hingga penonaktifan akun secara permanen. Aplikasi berhak mengambil tindakan yang dianggap perlu demi menjaga keamanan, kenyamanan, dan keberlangsungan layanan bagi seluruh pengguna."
+                    android:textColor="@color/text_secondary"
+                    android:lineSpacingExtra="6dp"
+                    android:justificationMode="inter_word"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+        </LinearLayout>
     </ScrollView>
 
-    <!-- Agreement -->
+    <!-- ===== AGREEMENT ===== -->
     <CheckBox
         android:id="@+id/cbAgree"
         android:text="Saya telah membaca dan menyetujui Syarat &amp; Ketentuan"
         android:textColor="@color/text_secondary"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
-    <!-- Button -->
+    <!-- ===== BUTTON ===== -->
     <Button
         android:id="@+id/btnContinue"
         android:text="Lanjutkan"
@@ -160,7 +246,6 @@
         android:enabled="false"
         android:layout_marginTop="12dp"
         android:layout_width="match_parent"
-        android:layout_height="56dp"/>
-
+        android:layout_height="56dp" />
 
 </LinearLayout>

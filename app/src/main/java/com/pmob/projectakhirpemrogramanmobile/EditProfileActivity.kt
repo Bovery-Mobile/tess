@@ -1,8 +1,7 @@
 package com.pmob.projectakhirpemrogramanmobile
 
 import android.app.DatePickerDialog
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
@@ -16,7 +15,7 @@ import com.pmob.projectakhirpemrogramanmobile.databinding.ActivitySetupProfileBi
 import com.pmob.projectakhirpemrogramanmobile.utils.ImageUtils
 import java.util.Calendar
 
-class SetupProfileActivity : AppCompatActivity() {
+class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySetupProfileBinding
 
@@ -26,9 +25,9 @@ class SetupProfileActivity : AppCompatActivity() {
     private var imageUri: Uri? = null
 
     // ===================== USER PREFS (PER UID) =====================
-    private fun userPrefs(): SharedPreferences {
-        val uid = auth.currentUser?.uid ?: error("User belum login")
-        return getSharedPreferences("user_profile_$uid", MODE_PRIVATE)
+    private fun prefsName(): String {
+        val uid = auth.currentUser?.uid ?: ""
+        return "user_profile_$uid"
     }
 
     // ===================== GALLERY =====================
@@ -61,25 +60,14 @@ class SetupProfileActivity : AppCompatActivity() {
 
         setupDatePicker()
         loadProfile()
-
-        binding.btnBack.setOnClickListener { finish() }
-
-        binding.btnChangePhoto.setOnClickListener {
-            showPhotoOptionDialog()
-        }
-
-        binding.btnSave.setOnClickListener {
-            saveProfile()
-        }
-
+        setupActions()
     }
 
     // ===================== LOAD PROFILE =====================
     private fun loadProfile() {
         val uid = auth.currentUser?.uid ?: return
-        val prefs = userPrefs()
+        val prefs = getSharedPreferences(prefsName(), Context.MODE_PRIVATE)
 
-        // ===== LOAD LOCAL =====
         binding.etFullName.setText(prefs.getString("fullName", ""))
         binding.etBirthPlace.setText(prefs.getString("birthPlace", ""))
         binding.etBirthDate.setText(prefs.getString("birthDate", ""))
@@ -96,25 +84,25 @@ class SetupProfileActivity : AppCompatActivity() {
             binding.imgProfile.setImageURI(Uri.parse(it))
         }
 
-        // ===== SYNC FIREBASE =====
+        // 🔄 Firebase (source of truth)
         database.child("users").child(uid)
             .get()
-            .addOnSuccessListener { snapshot ->
-                if (!snapshot.exists()) return@addOnSuccessListener
+            .addOnSuccessListener { snap ->
+                if (!snap.exists()) return@addOnSuccessListener
 
-                binding.etFullName.setText(snapshot.child("fullName").value?.toString())
-                binding.etBirthPlace.setText(snapshot.child("birthPlace").value?.toString())
-                binding.etBirthDate.setText(snapshot.child("birthDate").value?.toString())
-                binding.etAddress.setText(snapshot.child("address").value?.toString())
-                binding.etHobby.setText(snapshot.child("hobby").value?.toString())
-                binding.etBio.setText(snapshot.child("bio").value?.toString())
+                binding.etFullName.setText(snap.child("fullName").value?.toString() ?: "")
+                binding.etBirthPlace.setText(snap.child("birthPlace").value?.toString() ?: "")
+                binding.etBirthDate.setText(snap.child("birthDate").value?.toString() ?: "")
+                binding.etAddress.setText(snap.child("address").value?.toString() ?: "")
+                binding.etHobby.setText(snap.child("hobby").value?.toString() ?: "")
+                binding.etBio.setText(snap.child("bio").value?.toString() ?: "")
 
-                when (snapshot.child("gender").value?.toString()) {
+                when (snap.child("gender").value?.toString()) {
                     "Laki-laki" -> binding.rbMale.isChecked = true
                     "Perempuan" -> binding.rbFemale.isChecked = true
                 }
 
-                snapshot.child("photo").value?.toString()?.let {
+                snap.child("photo").value?.toString()?.let {
                     binding.imgProfile.setImageURI(Uri.parse(it))
                 }
             }
@@ -123,21 +111,36 @@ class SetupProfileActivity : AppCompatActivity() {
     // ===================== DATE PICKER =====================
     private fun setupDatePicker() {
         binding.etBirthDate.setOnClickListener {
-            val calendar = Calendar.getInstance()
+            val cal = Calendar.getInstance()
 
             DatePickerDialog(
                 this,
-                { _, year, month, day ->
-                    val date = String.format("%02d/%02d/%04d", day, month + 1, year)
-                    binding.etBirthDate.setText(date)
+                { _, y, m, d ->
+                    binding.etBirthDate.setText(
+                        String.format("%02d/%02d/%04d", d, m + 1, y)
+                    )
                 },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
             ).apply {
                 datePicker.maxDate = System.currentTimeMillis()
                 show()
             }
+        }
+    }
+
+    // ===================== ACTIONS =====================
+    private fun setupActions() {
+        binding.btnBack.setOnClickListener { finish() }
+
+        // 📷 Klik teks "Ubah Foto Profil"
+        binding.btnChangePhoto.setOnClickListener {
+            showPhotoOptionDialog()
+        }
+
+        binding.btnSave.setOnClickListener {
+            saveProfile()
         }
     }
 
@@ -158,26 +161,24 @@ class SetupProfileActivity : AppCompatActivity() {
     private fun uploadPhoto(uri: Uri) {
         val uid = auth.currentUser?.uid ?: return
 
-        val storageRef = FirebaseStorage.getInstance()
+        val ref = FirebaseStorage.getInstance()
             .reference
             .child("profile_photos/$uid.jpg")
 
-        storageRef.putFile(uri)
+        ref.putFile(uri)
             .addOnSuccessListener {
-                storageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                ref.downloadUrl.addOnSuccessListener { url ->
 
-                    // Simpan ke Firebase Database
+                    // Firebase Database
                     database.child("users")
                         .child(uid)
                         .child("photo")
-                        .setValue(downloadUrl.toString())
+                        .setValue(url.toString())
 
-                    // Simpan ke local cache (PER USER)
-                    getSharedPreferences(
-                        "user_profile_$uid",
-                        MODE_PRIVATE
-                    ).edit()
-                        .putString("photo", downloadUrl.toString())
+                    // Local cache
+                    getSharedPreferences(prefsName(), MODE_PRIVATE)
+                        .edit()
+                        .putString("photo", url.toString())
                         .apply()
                 }
             }
@@ -185,7 +186,6 @@ class SetupProfileActivity : AppCompatActivity() {
                 Toast.makeText(this, "Gagal upload foto", Toast.LENGTH_SHORT).show()
             }
     }
-
 
     // ===================== SAVE PROFILE =====================
     private fun saveProfile() {
@@ -205,33 +205,14 @@ class SetupProfileActivity : AppCompatActivity() {
             else -> ""
         }
 
-        // ===== VALIDASI =====
-        if (fullName.isEmpty()) {
-            binding.etFullName.error = "Nama wajib diisi"
+        if (fullName.isEmpty() || gender.isEmpty() ||
+            birthPlace.isEmpty() || birthDate.isEmpty() || address.isEmpty()
+        ) {
+            Toast.makeText(this, "Lengkapi semua data wajib", Toast.LENGTH_SHORT).show()
             return
         }
 
-        if (gender.isEmpty()) {
-            Toast.makeText(this, "Pilih jenis kelamin", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (birthPlace.isEmpty()) {
-            binding.etBirthPlace.error = "Tempat lahir wajib diisi"
-            return
-        }
-
-        if (birthDate.isEmpty()) {
-            binding.etBirthDate.error = "Tanggal lahir wajib diisi"
-            return
-        }
-
-        if (address.isEmpty()) {
-            binding.etAddress.error = "Alamat wajib diisi"
-            return
-        }
-
-        val userData = mapOf(
+        val data = mapOf(
             "fullName" to fullName,
             "gender" to gender,
             "birthPlace" to birthPlace,
@@ -242,12 +223,11 @@ class SetupProfileActivity : AppCompatActivity() {
             "email" to email
         )
 
-        database.child("users")
-            .child(uid)
-            .updateChildren(userData)
+        database.child("users").child(uid)
+            .updateChildren(data)
             .addOnSuccessListener {
 
-                userPrefs()
+                getSharedPreferences(prefsName(), MODE_PRIVATE)
                     .edit()
                     .apply {
                         putString("fullName", fullName)
@@ -261,13 +241,8 @@ class SetupProfileActivity : AppCompatActivity() {
                         apply()
                     }
 
-                Toast.makeText(this, "Profil berhasil disimpan", Toast.LENGTH_SHORT).show()
-
-                startActivity(Intent(this, MainActivity::class.java))
-                finishAffinity()
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Gagal menyimpan profil", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Profil berhasil diperbarui", Toast.LENGTH_SHORT).show()
+                finish()
             }
     }
 }

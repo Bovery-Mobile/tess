@@ -67,6 +67,7 @@ dependencies {
 
     // Firebase
     implementation("com.google.firebase:firebase-auth:23.0.0")
+    implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -93,6 +94,10 @@ dependencies {
 
     // Core Widget (untuk NestedScrollView)
     implementation("androidx.core:core:1.12.0")
+
+    implementation("com.midtrans:uikit:1.33.0") {
+        exclude(group = "com.android.support")
+    }
 
 
 }

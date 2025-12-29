@@ -1,5 +1,6 @@
 package com.pmob.projectakhirpemrogramanmobile
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -38,21 +39,29 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun sendResetEmail(email: String) {
+
+        binding.btnSubmit.isEnabled = false
+        binding.btnSubmit.text = "Mengirim..."
+
         auth.sendPasswordResetEmail(email)
             .addOnSuccessListener {
-                Toast.makeText(
-                    this,
-                    "Email reset password telah dikirim. Silakan cek email Anda.",
-                    Toast.LENGTH_LONG
-                ).show()
-                finish() // balik ke Login
+                val intent = Intent(this, ResetEmailSentActivity::class.java)
+                startActivity(intent)
+                finish()
             }
-            .addOnFailureListener {
-                Toast.makeText(
-                    this,
-                    it.message ?: "Gagal mengirim email reset",
-                    Toast.LENGTH_LONG
-                ).show()
+            .addOnFailureListener { error ->
+                binding.btnSubmit.isEnabled = true
+                binding.btnSubmit.text = "Kirim Email Reset"
+
+                val message = when {
+                    error.message?.contains("no user record", true) == true ->
+                        "Email tidak terdaftar di Bovery"
+                    else ->
+                        "Gagal mengirim email. Periksa koneksi Anda."
+                }
+
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }
     }
+
 }

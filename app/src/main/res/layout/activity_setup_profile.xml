@@ -2,152 +2,228 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
-        <!-- Title -->
-        <androidx.appcompat.widget.Toolbar
+        <!-- ===== HEADER ===== -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            android:elevation="0dp"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:contentInsetStart="0dp"
-            android:contentInsetLeft="0dp"
-            android:contentInsetStartWithNavigation="0dp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="8dp"
-                android:src="@drawable/ic_back"
-                android:tint="@color/text_primary"/>
-        </androidx.appcompat.widget.Toolbar>
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_back" />
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lengkapi Profil"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="#111827" />
+        </LinearLayout>
 
+        <!-- Subtitle -->
         <TextView
-            android:text="Lengkapi Profil"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:text="Lengkapi data diri Anda untuk melanjutkan"
-            android:textColor="@color/text_secondary"
-            android:layout_marginTop="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <!-- Profile Photo -->
-        <ImageView
-            android:id="@+id/imgProfile"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_user_placeholder"/>
-
-        <TextView
-            android:text="Ubah Foto Profil"
-            android:textColor="@color/primary"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="Lengkapi data diri Anda untuk melanjutkan"
+            android:textSize="14sp"
+            android:textColor="#6B7280" />
 
-        <!-- Nama Lengkap -->
+        <!-- ===== FOTO ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/ic_user_placeholder"
+                android:background="@drawable/bg_circle"
+                android:clipToOutline="true" />
+
+            <TextView
+                android:id="@+id/btnChangePhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Ubah Foto Profil"
+                android:textColor="#2563EB"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- ===== NAMA ===== -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Nama Lengkap"
+            android:textSize="14sp"
+            android:textColor="#374151" />
+
         <EditText
             android:id="@+id/etFullName"
-            android:hint="Nama Lengkap"
-            android:background="@drawable/bg_input"
-            android:padding="16dp"
-            android:layout_marginTop="24dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <!-- Jenis Kelamin -->
-        <Spinner
-            android:id="@+id/spGender"
+            android:layout_height="48dp"
             android:background="@drawable/bg_input"
+            android:paddingHorizontal="16dp"
+            android:hint="Masukkan nama lengkap"
+            android:textSize="14sp" />
+
+        <!-- ===== JENIS KELAMIN ===== -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:padding="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:text="Jenis Kelamin"
+            android:textSize="14sp"
+            android:textColor="#374151" />
 
-        <!-- Tempat Lahir -->
+        <RadioGroup
+            android:id="@+id/rgGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <RadioButton
+                android:id="@+id/rbMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Laki-laki"
+                android:layout_marginEnd="24dp" />
+
+            <RadioButton
+                android:id="@+id/rbFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Perempuan" />
+        </RadioGroup>
+
+        <!-- ===== TEMPAT LAHIR ===== -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Tempat Lahir"
+            android:textSize="14sp"
+            android:textColor="#374151" />
+
         <EditText
             android:id="@+id/etBirthPlace"
-            android:hint="Tempat Lahir"
-            android:background="@drawable/bg_input"
-            android:padding="16dp"
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <!-- Tanggal Lahir -->
-        <EditText
-            android:id="@+id/etBirthDate"
-            android:hint="Tanggal Lahir (DD/MM/YYYY)"
+            android:layout_height="48dp"
             android:background="@drawable/bg_input"
-            android:padding="16dp"
+            android:paddingHorizontal="16dp"
+            android:hint="Contoh: Jakarta"
+            android:textSize="14sp" />
+
+        <!-- ===== TANGGAL LAHIR ===== -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:focusable="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:clickable="true"
+            android:text="Tanggal Lahir"
+            android:textSize="14sp"
+            android:textColor="#374151" />
 
-        <!-- Alamat -->
+        <!-- ===== ALAMAT ===== -->
+        <EditText
+            android:id="@+id/etBirthDate"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_input"
+            android:hint="DD/MM/YYYY"
+            android:inputType="none"
+            android:paddingHorizontal="16dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Alamat"
+            android:textSize="14sp"
+            android:textColor="#374151" />
+
         <EditText
             android:id="@+id/etAddress"
-            android:hint="Alamat"
-            android:minLines="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:background="@drawable/bg_input"
+            android:padding="16dp"
+            android:hint="Masukkan alamat lengkap"
             android:gravity="top"
-            android:background="@drawable/bg_input"
-            android:padding="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:inputType="textMultiLine"
+            android:textSize="14sp" />
 
-        <!-- Hobi -->
-        <EditText
-            android:id="@+id/etHobby"
-            android:hint="Hobi"
-            android:background="@drawable/bg_input"
-            android:padding="16dp"
-            android:layout_marginTop="16dp"
+        <!-- ===== BIO ===== -->
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Bio"
+            android:textSize="14sp"
+            android:textColor="#374151" />
 
-        <!-- Bio -->
         <EditText
             android:id="@+id/etBio"
-            android:hint="Bio singkat"
-            android:minLines="3"
-            android:gravity="top"
-            android:background="@drawable/bg_input"
-            android:padding="16dp"
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="48dp"
+            android:background="@drawable/bg_input"
+            android:paddingHorizontal="16dp"
+            android:hint="Tentang Anda"
+            android:textSize="14sp" />
 
-        <!-- Button -->
+        <!-- ===== HOBI ===== -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Hobi"
+            android:textSize="14sp"
+            android:textColor="#374151" />
+
+        <EditText
+            android:id="@+id/etHobby"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_input"
+            android:paddingHorizontal="16dp"
+            android:hint="Contoh: Membaca, Renang"
+            android:textSize="14sp" />
+
+        <!-- ===== BUTTON ===== -->
         <Button
             android:id="@+id/btnSave"
-            android:text="Simpan &amp; Lanjutkan"
-            android:textColor="@android:color/white"
-            android:background="@drawable/bg_button_primary"
-            android:layout_marginTop="24dp"
             android:layout_width="match_parent"
-            android:layout_height="56dp"/>
+            android:layout_height="52dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="24dp"
+            android:text="Simpan &amp; Lanjutkan"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_button_primary" />
 
     </LinearLayout>
 </ScrollView>
