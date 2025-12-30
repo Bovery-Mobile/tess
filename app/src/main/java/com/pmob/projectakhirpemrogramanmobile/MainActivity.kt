@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         SdkUIFlowBuilder.init()
             .setClientKey("SB-Mid-client-s3Fpp8DYlCOiqsAL")
             .setContext(this)
-            .setMerchantBaseUrl("https://Bovery.great-site.net/")
+            .setMerchantBaseUrl("https://midtrans-backend-production-2c60.up.railway.app/")
             .enableLog(true)
             .buildSDK()
 

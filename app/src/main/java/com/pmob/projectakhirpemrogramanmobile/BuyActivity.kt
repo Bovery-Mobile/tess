@@ -7,13 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback
-import com.midtrans.sdk.corekit.core.MidtransSDK
-import com.midtrans.sdk.corekit.models.snap.TransactionResult
 import com.pmob.projectakhirpemrogramanmobile.databinding.ActivityBuyBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -46,65 +40,32 @@ class BuyActivity : AppCompatActivity() {
             .error(R.drawable.ic_launcher_background)
             .into(binding.ivCover)
 
-        // ===== Midtrans Callback =====
-        MidtransSDK.getInstance().setTransactionFinishedCallback { result ->
-
-            if (result.response != null) {
-                when (result.status) {
-
-                    TransactionResult.STATUS_SUCCESS -> {
-                        savePurchaseToFirebase(bookTitle, bookPrice)
-
-                        val intent = Intent(this, SuccessActivity::class.java)
-                        intent.putExtra("BOOK_TITLE", bookTitle)
-                        intent.putExtra("BOOK_PRICE", formatRupiah(bookPrice))
-                        startActivity(intent)
-                        finish()
-                    }
-
-                    TransactionResult.STATUS_PENDING -> {
-                        Toast.makeText(this, "Menunggu pembayaran", Toast.LENGTH_SHORT).show()
-                    }
-
-                    TransactionResult.STATUS_FAILED -> {
-                        Toast.makeText(this, "Pembayaran gagal", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            } else if (result.isTransactionCanceled) {
-                Toast.makeText(this, "Pembayaran dibatalkan", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-
-
         // ===== Actions =====
-        binding.btnBack.setOnClickListener { finish() }
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
         binding.btnBuyNow.setOnClickListener {
-            requestSnapToken()
+            val intent = Intent(this, PaymentActivity::class.java)
+            intent.putExtra("BOOK_TITLE", bookTitle)
+            intent.putExtra("BOOK_PRICE", bookPrice)
+            intent.putExtra("BOOK_COVER", bookCover)
+            startActivity(intent)
         }
+
     }
 
-    // ================== REQUEST TOKEN ==================
-    private fun requestSnapToken() {
-        MidtransRetrofit.api.getSnapToken()
-            .enqueue(object : Callback<MidtransResponse> {
-                override fun onResponse(
-                    call: Call<MidtransResponse>,
-                    response: Response<MidtransResponse>
-                ) {
-                    val token = response.body()?.token
-                    if (response.isSuccessful && token != null) {
-                        MidtransSDK.getInstance().startPaymentUiFlow(this@BuyActivity, token)
-                    } else {
-                        Toast.makeText(this@BuyActivity, "Gagal ambil token", Toast.LENGTH_SHORT).show()
-                    }
-                }
+    // ================== PAYMENT DUMMY ==================
+    private fun processDummyPayment() {
+        savePurchaseToFirebase(bookTitle, bookPrice)
 
-                override fun onFailure(call: Call<MidtransResponse>, t: Throwable) {
-                    Toast.makeText(this@BuyActivity, t.message, Toast.LENGTH_SHORT).show()
-                }
-            })
+        Toast.makeText(this, "Pembayaran berhasil (Simulasi)", Toast.LENGTH_SHORT).show()
+
+        val intent = Intent(this, SuccessActivity::class.java)
+        intent.putExtra("BOOK_TITLE", bookTitle)
+        intent.putExtra("BOOK_PRICE", formatRupiah(bookPrice))
+        startActivity(intent)
+        finish()
     }
 
     // ================== SAVE TO FIREBASE ==================
@@ -126,7 +87,6 @@ class BuyActivity : AppCompatActivity() {
 
         db.child(purchaseId).setValue(purchase)
     }
-
 
     // ================== FORMAT RUPIAH ==================
     private fun formatRupiah(value: Double): String {

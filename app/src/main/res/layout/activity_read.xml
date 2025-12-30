@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/ivBackRead"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:src="@drawable/ic_back" />
 
         <TextView
